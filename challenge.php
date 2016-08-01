@@ -30,7 +30,7 @@ for($i=0; $i<=count($origin); $i++){
         if($origin[$i][$j] && !$maxArray[$i][$j]){
             $controlArray[$i][$j] = $origin[$i][$j];
             $num = 1;
-            $findNum = $findMaxBlock($i,$j)+1;
+            $findNum = findMaxBlock($i,$j)+1;
             
             // 如果陣列數>最大陣列數 則取代
             if($maxCount < $findNum){
