@@ -15,9 +15,9 @@ $origin = array(
 );
 
 $orginArray = new block($origin);
-
+// 取得最大陣列
 $orginArray -> compute();
-
+// 印出陣列
 $orginArray -> printArray();
 
 class block{
@@ -34,18 +34,18 @@ class block{
         $this -> origin = $array;
     }
     
+    // 
     function compute(){
        
         for($row=0; $row <= count($this->origin); $row++){
             for($col=0; $col <= count($this->origin[$row]); $col++){
                 
-                // 判斷最大陣列裡是否有值
                 if($this->origin[$row][$col] && !$this->maxArray[$row][$col]){
                     $this->controlArray[$row][$col] = $this->origin[$row][$col];
                     $num = 1;
                     $findNum = $this->findMaxBlock($row,$col)+1;
                     
-                    // 如果陣列數>最大陣列數 則取代
+                    // 陣列數>最大陣列數 -> 取代
                     if($this->maxCount < $findNum){
                         $this->maxArray = $this->controlArray;
                         $this->maxCount = $findNum;
