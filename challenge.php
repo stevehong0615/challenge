@@ -36,14 +36,14 @@ class block{
     
     function compute(){
        
-        for($i=0; $i<=count($this->origin); $i++){
-            for($j=0; $j<=count($this->origin[$i]); $j++){
+        for($row=0; $row <= count($this->origin); $row++){
+            for($col=0; $col <= count($this->origin[$row]); $col++){
                 
                 // 判斷最大陣列裡是否有值
-                if($this->origin[$i][$j] && !$this->maxArray[$i][$j]){
-                    $this->controlArray[$i][$j] = $this->origin[$i][$j];
+                if($this->origin[$row][$col] && !$this->maxArray[$row][$col]){
+                    $this->controlArray[$row][$col] = $this->origin[$row][$col];
                     $num = 1;
-                    $findNum = $this->findMaxBlock($i,$j)+1;
+                    $findNum = $this->findMaxBlock($row,$col)+1;
                     
                     // 如果陣列數>最大陣列數 則取代
                     if($this->maxCount < $findNum){
@@ -52,9 +52,9 @@ class block{
                     }
                     
                     // 變動陣列歸零
-                    for($z=0; $z<count($this->origin); $z++){
-                        for($x=0; $x<count($this->origin[$z]); $x++){
-                            $this->controlArray[$z][$x] = 0;
+                    for($controlRow=0; $controlRow < count($this->origin); $controlRow++){
+                        for($controlCol=0; $controlCol < count($this->origin[$controlRow]); $controlCol++){
+                            $this->controlArray[$controlRow][$controlCol] = 0;
                         }
                     }
                 }
@@ -75,32 +75,30 @@ class block{
     }
     
     // 找到1丟給變動陣列後num+1
-    function findMaxBlock($i,$j){
+    function findMaxBlock($row,$col){
       
-        if($this->origin[$i+1][$j] && !$this->controlArray[$i+1][$j]){
-            $this->controlArray[$i+1][$j] = $this->origin[$i+1][$j];
+        if($this->origin[$row+1][$col] && !$this->controlArray[$row+1][$col]){
+            $this->controlArray[$row+1][$col] = $this->origin[$row+1][$col];
             $num++;
-            $num += $this->findMaxBlock($i+1,$j);
+            $num += $this->findMaxBlock($row+1,$col);
         };
-        if($this->origin[$i-1][$j] && !$this->controlArray[$i-1][$j]){
-            $this->controlArray[$i-1][$j] = $this->origin[$i-1][$j];
+        if($this->origin[$row-1][$col] && !$this->controlArray[$row-1][$col]){
+            $this->controlArray[$row-1][$col] = $this->origin[$row-1][$col];
             $num++;
-            $num += $this->findMaxBlock($i-1,$j);
+            $num += $this->findMaxBlock($row-1,$col);
         };
-        if($this->origin[$i][$j+1] && !$this->controlArray[$i][$j+1]){
-            $this->controlArray[$i][$j+1] = $this->origin[$i][$j+1];
+        if($this->origin[$row][$col+1] && !$this->controlArray[$row][$col+1]){
+            $this->controlArray[$row][$col+1] = $this->origin[$row][$col+1];
             $num++;
-            $num += $this->findMaxBlock($i,$j+1);
+            $num += $this->findMaxBlock($row,$col+1);
         };
-        if($this->origin[$i][$j-1] && !$this->controlArray[$i][$j-1]){
-            $this->controlArray[$i][$j-1] = $this->origin[$i][$j-1];
+        if($this->origin[$row][$col-1] && !$this->controlArray[$row][$col-1]){
+            $this->controlArray[$row][$col-1] = $this->origin[$row][$col-1];
             $num++;
-            $num += $this->findMaxBlock($i,$j-1);
+            $num += $this->findMaxBlock($row,$col-1);
         };
         return $num;
     }
 }
-
 echo '</div>';
-  
 ?>
